@@ -6,8 +6,8 @@ require "test/unit"
 require "chrome_watir"
 
 def start_browser(page)
-  path = "file:///E:/MyCodeRepo/chrome_watir/test/html/"
-  url = "#{path}#{page}.html"
+  html_folder_path = "file:///" + Dir.pwd + "/html/"
+  url = "#{html_folder_path}#{page}.html"
   browser = ChromeWatir::Browser.new
   browser.goto url
   return browser
