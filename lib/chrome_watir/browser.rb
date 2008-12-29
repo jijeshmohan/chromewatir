@@ -1,9 +1,12 @@
 module ChromeWatir
   class Browser
     include Container
+    def initialize(chrome_path = nil)
+      @chrome_path = chrome_path
+    end
     def goto(url)
       Connection.close
-      @pid = Launcher.new.start(url)
+      @pid = Launcher.new.start(url,@chrome_path)
       sleep(0.3)
     end
     def url
