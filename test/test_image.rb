@@ -9,6 +9,7 @@ class ImageTest < Test::Unit::TestCase
   end
   def test_click_image
     @browser.image(:name, "disabler_test").click()
+    assert_equal("Pass Page", @browser.title)
     @browser.back
     @browser.image(:name,"tsogpsb").click
     @browser.back

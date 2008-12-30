@@ -7,7 +7,7 @@ module ChromeWatir
     def goto(url)
       Connection.close
       @pid = Launcher.new.start(url,@chrome_path)
-      sleep(0.3)
+      wait_for_page_to_load
     end
     def url
       js_eval("document.URL")

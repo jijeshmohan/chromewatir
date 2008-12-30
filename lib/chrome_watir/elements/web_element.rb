@@ -51,6 +51,7 @@ module ChromeWatir
       element.dispatchEvent(event)
       EOS
       @container.js_eval(script)
+      @container.wait_for_page_to_load
     end
   end
 end

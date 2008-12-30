@@ -18,6 +18,16 @@ module ChromeWatir
     def image(how,what)
       return Image.new(self, how, what)
     end
+    def wait_for_page_to_load
+      js_eval("document.readyState")
+      value = read_socket
+      puts value
+      until(value.eql? "complete")
+        sleep(0.2)
+        js_eval("document.readyState")
+        value = read_socket
+      end
+    end     
     def js_eval(string)
       sleep(0.1)
       @command_to_run = "print #{string}\r\n"

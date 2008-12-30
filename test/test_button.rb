@@ -9,5 +9,6 @@ class ButtonTest < Test::Unit::TestCase
   end
   def test_click_button
     @browser.button(:id, "b2").click()
+    assert_equal("Pass Page", @browser.title)
   end
 end
