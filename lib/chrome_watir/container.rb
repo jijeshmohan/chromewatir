@@ -35,7 +35,7 @@ module ChromeWatir
       Connection.get.flush
     end
     def read_socket
-      sleep(0.1)
+      sleep(0.2)
       connection = Connection.get
       size = 4096
       receive = true
@@ -47,15 +47,17 @@ module ChromeWatir
           end 
           value += data
       end
-        value_arr=value.split("\n")
+         value_arr=value.split("\n")
         if value_arr.length > 1
+            value_arr=value_arr.find_all{ |x| x.strip != "" }
             value=value_arr[-2] 
+            
             return value.strip unless value.include?("v8(running)>")
         else
           return value
         end
        return ""
-      return value
+
     end
   end
 end
