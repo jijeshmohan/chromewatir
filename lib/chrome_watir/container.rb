@@ -19,35 +19,32 @@ module ChromeWatir
       return Image.new(self, how, what)
     end
     def js_eval(string)
-      sleep(0.3)
+      sleep(0.1)
       @command_to_run = "print #{string}\r\n"
       Connection.get.write(@command_to_run)
       Connection.get.flush
     end
     def read_socket
+      sleep(0.1)
       connection = Connection.get
       size = 4096
-      grow_by = 1024
       receive = true
       value = ""
-      socks = nil
-      while(socks == nil)
-        socks = Kernel.select([connection],nil,nil,1)
-      end
-      for stream in socks[0]
-        data = stream.recv(size)
-        while(receive)
+      while(receive)
+          data = connection.recv(size)
+          if data.length < size
+            receive=false
+          end 
           value += data
-          size += grow_by
-          if(value.include?("\r\nv8(running)> "))
-            receive = false
-            data = stream.recv(size)
-          else
-            data = stream.recv(size)
-          end
-        end
       end
-      value += data if data
+        value_arr=value.split("\n")
+        if value_arr.length > 1
+            value=value_arr[-2] 
+            return value.strip unless value.include?("v8(running)>")
+        else
+          return value
+        end
+       return ""
       return value
     end
   end

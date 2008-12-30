@@ -13,6 +13,6 @@ class TextFieldTest < Test::Unit::TestCase
   def test_clear_text_field
     @browser.text_field(:name,"text1").clear
     puts "title - " + @browser.url
-    #~ assert_equal("",@browser.text_field(:name,"text1").value)
+    assert_equal("",@browser.text_field(:name,"text1").value)
   end
 end
