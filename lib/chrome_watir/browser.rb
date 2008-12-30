@@ -13,6 +13,10 @@ module ChromeWatir
       js_eval("document.URL")
       return read_socket
     end
+    def title
+      js_eval("document.title")
+      return read_socket
+    end
     def back
       js_eval("history.back()")
       read_socket
