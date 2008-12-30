@@ -1,5 +1,6 @@
 module ChromeWatir
   module Container
+  include ChromeWatir::Exceptions
     def text_field(how, what)
       return TextField.new(self, how,what)
     end
@@ -19,13 +20,22 @@ module ChromeWatir
       return Image.new(self, how, what)
     end
     def wait_for_page_to_load
+      default_time_out = 2
+      sleep_time = 0.2
+      counter = default_time_out/sleep_time
       js_eval("document.readyState")
       value = read_socket
-      puts value
       until(value.eql? "complete")
-        sleep(0.2)
+        sleep(sleep_time)
         js_eval("document.readyState")
         value = read_socket
+        
+        #For timeout
+        counter -= 1
+        if counter < 0
+          close
+          raise TimeOutException.new("Navigation timed out.") 
+        end
       end
     end     
     def js_eval(string)
@@ -51,7 +61,6 @@ module ChromeWatir
         if value_arr.length > 1
             value_arr=value_arr.find_all{ |x| x.strip != "" }
             value=value_arr[-2] 
-            
             return value.strip unless value.include?("v8(running)>")
         else
           return value

@@ -30,12 +30,7 @@ module ChromeWatir
     # This exception is thrown if an http error, such as a 404, 500 etc is encountered while navigating
     class NavigationException < ChromeException; end
     # This exception is raised if a timeout is exceeded
-    class TimeOutException < ChromeException
-      def initialize(duration, timeout)
-        @duration, @timeout = duration, timeout
-      end
-      attr_reader :duration, :timeout
-    end
+    class TimeOutException < ChromeException;    end
     # This exception is raised if chrome is not found in path
     class BinaryNotFoundException < ChromeException; end
   end
