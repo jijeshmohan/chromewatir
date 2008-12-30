@@ -13,7 +13,13 @@ module ChromeWatir
     def checked?
       locate
       @container.js_eval("element.checked")
-      return @container.read_socket
+      value = @container.read_socket
+      if value.eql? "true"
+        return true
+      end
+      if value.eql? "false"
+        return false
+      end
     end
   end
 end

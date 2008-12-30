@@ -9,9 +9,10 @@ class CheckBoxTest < Test::Unit::TestCase
   end
   def test_check_box_set
     @browser.check_box(:name, "box1").set
-    puts @browser.check_box(:name, "box1").checked?
+    assert_equal(true, @browser.check_box(:name, "box1").checked?)
   end
   def test_check_box_clear
     @browser.check_box(:name, "box1").clear
+    assert_equal(false,@browser.check_box(:name, "box1").checked?)
   end
 end

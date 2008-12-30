@@ -9,6 +9,7 @@ class TextFieldTest < Test::Unit::TestCase
   end
   def test_set_text_field
     @browser.text_field(:name, "text1").set "ni hao"
+    assert_equal("ni hao",@browser.text_field(:name,"text1").value)
   end
   def test_clear_text_field
     @browser.text_field(:name,"text1").clear
