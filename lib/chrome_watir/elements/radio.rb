@@ -1,17 +1,17 @@
 module ChromeWatir
   class Radio < WebElement
     def set
-      locate
+      assert_exist
       @container.js_eval("element.checked = true")
       @container.read_socket
     end
     def clear
-      locate
+      assert_exist
       @container.js_eval("element.checked = false")
       @container.read_socket
     end
     def checked?
-      locate
+      assert_exist
       @container.js_eval("element.checked")
       value = @container.read_socket
       if value.eql? "true"

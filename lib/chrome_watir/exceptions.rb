@@ -33,5 +33,12 @@ module ChromeWatir
     class TimeOutException < ChromeException;    end
     # This exception is raised if chrome is not found in path
     class BinaryNotFoundException < ChromeException; end
+    
+    # Return an error message for when unable to locate the element
+    def self.message_for_unable_to_locate(how, what)
+      result = "using #{how.inspect}"
+      result << ", #{what.inspect}" if what
+      "Unable to locate element, #{result}"
+    end        
   end
 end

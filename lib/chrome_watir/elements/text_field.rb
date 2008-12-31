@@ -1,17 +1,17 @@
 module ChromeWatir
   class TextField < WebElement
     def set(text)
-      locate
+      assert_exist
       @container.js_eval("element.value = '#{text}'")
       return @container.read_socket
     end
     def clear
-      locate
+      assert_exist
       @container.js_eval("element.value = ''")
       return @container.read_socket
     end
     def value
-      locate
+      assert_exist
       @container.js_eval("element.value")
       return @container.read_socket
     end

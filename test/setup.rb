@@ -4,6 +4,7 @@ $LOAD_PATH.unshift CHROME_LIB_PATH
 
 require "test/unit"
 require "chrome_watir"
+require "chrome_watir/exceptions"
 
 def start_browser(page)
   html_folder_path = "file:///" + Dir.pwd + "/html/"

@@ -1,5 +1,7 @@
 module ChromeWatir
   class WebElement
+    include ChromeWatir::Exceptions
+    
     @@driver_elements = nil
     def initialize(container,how,what)
       @container = container
@@ -40,8 +42,34 @@ module ChromeWatir
           EOF
       end
     end
-    def click
+    def assert_exist
       locate
+      script = <<-EOS
+      var exist = function() {
+        if (element) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      EOS
+      @container.js_eval(script)
+      @container.read_socket
+      @container.js_eval("exist()")
+      exist = @container.read_socket
+      raise UnknownObjectException.new(ChromeWatir::Exceptions.message_for_unable_to_locate(@how, @what)) if exist.eql? "false"
+    end
+    def exist?
+      begin
+        assert_exist
+      rescue
+        return false
+      end
+      return true
+    end
+    def click
+      assert_exist
       script = <<-EOS
       if (element["click"]){
         element.click();
