@@ -21,4 +21,8 @@ class BrowserTest < Test::Unit::TestCase
     @browser.forward
     assert_match(/links2/,@browser.url)
   end
+  def test_page_source
+    @browser.link(:link_text, "test1").click
+    assert_match(/Links2-Pass/,@browser.page_source)
+  end
 end

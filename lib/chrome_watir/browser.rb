@@ -26,6 +26,10 @@ module ChromeWatir
       js_eval("history.forward()")
       read_socket
     end
+    def page_source
+      js_eval("document.body.innerHTML")
+      return read_socket
+    end
     def close
       sleep(0.5)
       Process.kill(5,@pid)

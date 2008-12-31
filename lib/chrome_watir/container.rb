@@ -1,6 +1,7 @@
 module ChromeWatir
   module Container
   include ChromeWatir::Exceptions
+    @@command_to_run = ""
     def text_field(how, what)
       return TextField.new(self, how,what)
     end
@@ -40,12 +41,13 @@ module ChromeWatir
     end     
     def js_eval(string)
       sleep(0.1)
-      @command_to_run = "print #{string}\r\n"
-      Connection.get.write(@command_to_run)
+      @@command_to_run = "print #{string}\r\n"
+      Connection.get.write(@@command_to_run)
       Connection.get.flush
     end
     def read_socket
       sleep(0.2)
+      last_run_command = @@command_to_run.strip
       connection = Connection.get
       size = 4096
       receive = true
@@ -60,13 +62,24 @@ module ChromeWatir
          value_arr=value.split("\n")
         if value_arr.length > 1
             value_arr=value_arr.find_all{ |x| x.strip != "" }
-            value=value_arr[-2] 
+            counter = -1
+            while(true)
+              counter -= 1
+              line = value_arr[counter]
+              break unless line
+              if line.include?(last_run_command)
+                break
+              end
+            end
+            value = ""
+            for i in ((counter+1).. -2)
+              value += value_arr[i].strip! + "\n"
+            end
             return value.strip unless value.include?("v8(running)>")
         else
           return value
         end
        return ""
-
     end
   end
 end
