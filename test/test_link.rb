@@ -7,12 +7,14 @@ class LinkTest < Test::Unit::TestCase
   def teardown
     @browser.close
   end
+  def test_link_text
+   assert_equal("test1",@browser.link(:link_text,"test1").text)
+  end
+
   def test_link_click
     @browser.link(:link_text,"test1").click()
     @browser.back
     @browser.link(:link_text, "Image and a text link").click
   end
-  def test_link_text
-   assert_equal("test1",@browser.link(:link_text,"test1").text)
-  end
+  
 end

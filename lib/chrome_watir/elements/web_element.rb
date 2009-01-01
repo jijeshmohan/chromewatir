@@ -82,5 +82,11 @@ module ChromeWatir
       @container.read_socket
       @container.wait_for_page_to_load
     end
+    def text
+      assert_exist
+      @container.js_eval("element.innerText")
+      return @container.read_socket.strip
+    end
+
   end
 end
