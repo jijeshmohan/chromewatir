@@ -1,5 +1,5 @@
 module ChromeWatir
-  class TextField < WebElement
+  class TextField < InputElement
     def set(text)
       assert_enabled
       @container.js_eval("element.value = '#{text}'")

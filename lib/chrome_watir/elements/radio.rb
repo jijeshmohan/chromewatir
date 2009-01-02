@@ -1,5 +1,5 @@
 module ChromeWatir
-  class Radio < WebElement
+  class Radio < InputElement
     def set
       assert_enabled
       @container.js_eval("element.checked = true")

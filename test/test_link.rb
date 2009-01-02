@@ -13,8 +13,11 @@ class LinkTest < Test::Unit::TestCase
 
   def test_link_click
     @browser.link(:text,"test1").click()
+    assert_match(/Test page for Links/, @browser.title)
     @browser.back
-    @browser.link(:text, "Image and a text link").click
+    @browser.link(:xpath, "//a[3]/img").click
+    assert_match(/pass3/, @browser.url)
+
   end
   
 end

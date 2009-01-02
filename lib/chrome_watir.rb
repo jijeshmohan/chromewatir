@@ -12,6 +12,7 @@ require lib_directory + "launcher"
 require lib_directory + "browser"
 
 require elements_directory + "web_element"
+require elements_directory + "input_element"
 require elements_directory + "button"
 require elements_directory + "text_field"
 require elements_directory + "image"

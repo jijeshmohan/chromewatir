@@ -1,4 +1,4 @@
 module ChromeWatir
-  class Button < WebElement
+  class Button < InputElement
   end
 end
