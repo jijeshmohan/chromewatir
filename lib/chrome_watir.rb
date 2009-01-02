@@ -19,6 +19,7 @@ require elements_directory + "image"
 require elements_directory + "radio"
 require elements_directory + "check_box"
 require elements_directory + "link"
+require elements_directory + "select_list"
 
 module ChromeWatir
 end

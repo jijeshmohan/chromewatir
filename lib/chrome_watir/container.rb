@@ -20,6 +20,9 @@ module ChromeWatir
     def image(how,what)
       return Image.new(self, how, what)
     end
+    def select_list(how,what)
+      return SelectList.new(self,how,what)
+    end
     def wait_for_page_to_load
       default_time_out = 2
       sleep_time = 0.2
