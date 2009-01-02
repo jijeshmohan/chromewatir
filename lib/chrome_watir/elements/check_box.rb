@@ -1,12 +1,12 @@
 module ChromeWatir
   class CheckBox < WebElement
     def set
-      assert_exist
+      assert_enabled
       @container.js_eval("element.checked = true")
       @container.read_socket
     end
     def clear
-      assert_exist
+      assert_enabled
       @container.js_eval("element.checked = false")
       @container.read_socket
     end

@@ -14,18 +14,6 @@ module ChromeWatir
           @container.js_eval("var element = document.getElementById('#{@what}');")
         when :name
           @container.js_eval("var element = document.getElementsByName('#{@what}')[0];")
-        when :link_text
-          script = <<-EOF
-          var foundElement = false;
-          for (var i = 0; i < document.links.length; i++) {
-            var element = document.links[i];
-            if (element.text == '#{@what}') {
-              foundElement = true;
-              break;
-            }
-          }
-          EOF
-          @container.js_eval(script)
         when :xpath
           script = "var element = document.evaluate(\"#{@what}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
           @container.js_eval(script)
@@ -68,8 +56,25 @@ module ChromeWatir
       end
       return true
     end
-    def click
+    def assert_enabled
       assert_exist
+      @container.js_eval("element.disabled")
+      disabled = @container.read_socket
+      raise(ObjectDisabledException, "object #{@how} and #{@what} is disabled") if disabled.eql? "true"
+      @container.js_eval("element.readOnly")
+      read_only = @container.read_socket
+      raise(ObjectReadOnlyException, "object #{@how} and #{@what} is read only") if read_only.eql? "true"      
+    end
+    def enabled?
+      begin
+        assert_enabled
+      rescue
+        return false
+      end
+      return true
+    end
+    def click
+      assert_enabled
       script = <<-EOS
       if (element["click"]){
         element.click();
