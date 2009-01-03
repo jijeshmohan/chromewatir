@@ -30,6 +30,14 @@ class SelectListTest < Test::Unit::TestCase
     @browser.select_list(:name, "sel1").select("Option 1") 
     assert_equal( ["Option 1" ] , @browser.select_list(:name, "sel1").getSelectedItems)
   end
+  def test_select_list_includes
+  
+    assert_equal(true, @browser.select_list(:name, "sel1").includes?("Option 1"))
+  end
+  def test_select_list_select_value
+     @browser.select_list(:name, "sel1").select_value("o2") 
+    assert_equal( ["Option 2" ] , @browser.select_list(:name, "sel1").getSelectedItems)
+  end
 end
 
  

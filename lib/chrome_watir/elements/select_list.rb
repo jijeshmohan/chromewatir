@@ -58,7 +58,30 @@ module ChromeWatir
     def selected? text
       getSelectedItems.include? text
     end
-    
+    def includes? text
+      getAllContents.include? text
+    end
+    def select_value value
+      assert_enabled
+      script = <<-EOS
+      var getVal = function() {
+      for(i=0; i < element.length; i++)
+          {
+            if(element.options[i].value == '#{value}' )
+            {
+             
+                  element.options[i].selected=true;
+              
+            }
+          }
+          
+        }
+      EOS
+      @container.js_eval(script)
+      @container.read_socket
+      @container.js_eval("getVal();")
+     @container.read_socket
+    end
     def select item
       assert_enabled
       script = <<-EOS
