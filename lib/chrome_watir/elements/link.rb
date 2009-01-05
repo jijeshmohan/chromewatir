@@ -34,5 +34,22 @@ module ChromeWatir
       @container.js_eval("hasImg();")
       return @container.read_socket.strip.include?("true")
     end
-  end
+ 
+    def src
+      exist?
+      script = <<-EOS
+      var imgSrc = function() {
+        if (element.getElementsByTagName("IMG").length > 0 )
+          return element.getElementsByTagName("IMG")[0].src;
+        else
+          return "";
+        }
+      EOS
+      @container.js_eval(script)
+      @container.read_socket
+      @container.js_eval("imgSrc();")
+      return @container.read_socket
+    end
+ 
+end
 end
