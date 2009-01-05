@@ -49,7 +49,7 @@ module ChromeWatir
       Connection.get.flush
     end
     def read_socket
-      sleep(0.2)
+      sleep(0.1)
       last_run_command = @@command_to_run.strip
       connection = Connection.get
       size = 4096
@@ -78,7 +78,9 @@ module ChromeWatir
             for i in ((counter+1).. -2)
               value += value_arr[i].strip! + "\n"
             end
-            return value.strip unless value.include?("v8(running)>")
+            value.strip! unless value.include?("v8(running)>")
+            value.sub!("null","") if value.eql? "null"
+            return value
         else
           return value
         end

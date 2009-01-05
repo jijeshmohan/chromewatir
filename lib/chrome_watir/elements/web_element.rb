@@ -92,6 +92,47 @@ module ChromeWatir
       @container.js_eval("element.innerText")
       return @container.read_socket.strip
     end
+    
+    def disabled
+      return  !enabled?
+    end    
 
+    private
+    def self.def_wrap(method_name,attribute_name)
+      class_eval "def #{method_name}
+                    assert_exist
+                    begin
+                      @container.js_eval(\"element.getAttribute('#{attribute_name}')\")
+                      return @container.read_socket
+                    rescue
+                      ''
+                    end
+              end"
+    end
+    
+    def self.def_wrap_guard(method_name)
+      class_eval "def #{method_name}
+                    assert_exist
+                    begin
+                      @container.js_eval(\"element.getAttribute('#{method_name}')\")
+                      return @container.read_socket
+                    rescue
+                        ''
+                    end
+              end"
+    end
+
+    # return the name of the element (as defined in html)
+    def_wrap_guard :name
+    # return the id of the element
+    def_wrap_guard :id
+    # return the value of the element
+    def_wrap_guard :value
+    # return the title of the element
+    def_wrap_guard :title
+    # return the style of the element
+    def_wrap_guard :style
+    # return the class name of the element
+    def_wrap :class_name, :class    
   end
 end
