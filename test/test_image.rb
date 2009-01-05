@@ -15,4 +15,8 @@ class ImageTest < Test::Unit::TestCase
     @browser.back
     @browser.image(:xpath, "//img[@name='disabler_test']").click
   end
+  def test_alt_src_image
+      assert_equal('images/circle.jpg',@browser.image(:alt, "circle").src)
+       assert_equal('circle',@browser.image(:src, "images/circle.jpg").alt)
+  end
 end
