@@ -14,7 +14,7 @@ class BrowserTest < Test::Unit::TestCase
     assert_match(/links1/,@browser.url)
   end
   def test_browser_navigation
-    @browser.link(:link_text, "test1").click
+    @browser.link(:text, "test1").click
     assert_match(/links2/,@browser.url)
     @browser.back
     assert_match(/links1/,@browser.url)
@@ -22,7 +22,7 @@ class BrowserTest < Test::Unit::TestCase
     assert_match(/links2/,@browser.url)
   end
   def test_page_source
-    @browser.link(:link_text, "test1").click
+    @browser.link(:text, "test1").click
     assert_match(/Links2-Pass/,@browser.page_source)
   end
 end
