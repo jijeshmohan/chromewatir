@@ -18,5 +18,21 @@ module ChromeWatir
           super()
       end
     end
+    
+    def has_image?
+      exist?
+      script = <<-EOS
+      var hasImg  = function() {
+        if (element.getElementsByTagName("IMG").length > 0 )
+          return true;
+        else
+          return false;
+        }
+      EOS
+      @container.js_eval(script)
+      @container.read_socket
+      @container.js_eval("hasImg();")
+      return @container.read_socket.strip.include?("true")
+    end
   end
 end

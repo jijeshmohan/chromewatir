@@ -10,7 +10,10 @@ class LinkTest < Test::Unit::TestCase
   def test_link_text
    assert_equal("test1",@browser.link(:text,"test1").text)
   end
-
+  
+  def test_link_has_image
+    assert_equal(false,@browser.link(:text,"test1").has_image?)
+  end
   def test_link_click
     @browser.link(:text,"test1").click()
     assert_match(/Test page for Links/, @browser.title)
