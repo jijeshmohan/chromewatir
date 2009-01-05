@@ -28,6 +28,12 @@ module ChromeWatir
             }
           }
           EOF
+          @container.js_eval(script)
+        when :index
+          script = "var element = document.evaluate(\"//#{self.class::ELEMENT_TYPE}[@type='#{self.class::INPUT_TYPE}']\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
+          @container.js_eval(script)
+        else
+          raise MissingWayOfFindingObjectException, "#{@how} is an unknown way of finding an <#{self.class.to_s}> element (#{@what})"
       end
     end
     def assert_exist
@@ -94,6 +100,7 @@ module ChromeWatir
     end
     
     def disabled
+      assert_exist
       return  !enabled?
     end    
 
