@@ -8,20 +8,20 @@ class ButtonTest < Test::Unit::TestCase
   def teardown
     @browser.close
   end
-  #~ def test_click_button
-    #~ assert_raise(UnknownObjectException){@browser.button(:id, "notThere").click}
-    #~ assert_raise(ObjectDisabledException){@browser.button(:id, "b9").click}
-    #~ @browser.button(:id, "b2").click()
-    #~ assert_equal("Pass Page", @browser.title)
-  #~ end
-  #~ def test_button_exist
-    #~ assert_equal(false, @browser.button(:id, "notThere").exist?)
-    #~ assert_equal(true, @browser.button(:id, "b2").exist?)
-  #~ end
-  #~ def test_button_enabled
-    #~ assert_equal(true, @browser.button(:id, "b2").enabled?)
-    #~ assert_equal(false, @browser.button(:name, "b8").enabled?)
-  #~ end
+  def test_click_button
+    assert_raise(UnknownObjectException){@browser.button(:id, "notThere").click}
+    assert_raise(ObjectDisabledException){@browser.button(:id, "b9").click}
+    @browser.button(:id, "b2").click()
+    assert_equal("Pass Page", @browser.title)
+  end
+  def test_button_exist
+    assert_equal(false, @browser.button(:id, "notThere").exist?)
+    assert_equal(true, @browser.button(:id, "b2").exist?)
+  end
+  def test_button_enabled
+    assert_equal(true, @browser.button(:id, "b2").enabled?)
+    assert_equal(false, @browser.button(:name, "b8").enabled?)
+  end
   def test_button_properties
      assert_equal("b1"  , @browser.button(:id, "b2").name )
      assert_equal("b2"  , @browser.button(:name, "b1").id )
