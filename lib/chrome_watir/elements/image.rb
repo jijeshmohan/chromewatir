@@ -1,6 +1,7 @@
 
 module ChromeWatir
   class Image < WebElement
+    ELEMENT_TYPE = "img"
     def locate
       case @how
         when :alt

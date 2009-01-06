@@ -1,5 +1,6 @@
 module ChromeWatir
   class Link < WebElement
+    ELEMENT_TYPE = "a"
     def locate
       case @how
         when :text

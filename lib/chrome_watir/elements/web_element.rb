@@ -30,7 +30,28 @@ module ChromeWatir
           EOF
           @container.js_eval(script)
         when :index
-          script = "var element = document.evaluate(\"//#{self.class::ELEMENT_TYPE}[@type='#{self.class::INPUT_TYPE}']\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
+          if(defined? self.class::INPUT_TYPE)
+            script = <<-EOF
+            var selected_elements = []
+            var types = #{self.class::INPUT_TYPE}
+            var elements = document.getElementsByTagName("#{self.class::ELEMENT_TYPE}");
+            for (var i=0; i<elements.length;i++)
+            {
+              for (var j=0; j<types.length;j++)
+              {
+                if(elements[i].getAttribute('type') == types[j])
+                {
+                  selected_elements = elements[i]
+                }
+              }
+            }
+            var element = selected_elements[#{@what - 1}]
+            EOF
+          else
+            script = <<-EOF
+            var element = document.getElementsByTagName("#{self.class::ELEMENT_TYPE}")[#{@what - 1}];
+            EOF
+          end
           @container.js_eval(script)
         else
           raise MissingWayOfFindingObjectException, "#{@how} is an unknown way of finding an <#{self.class.to_s}> element (#{@what})"

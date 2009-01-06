@@ -1,7 +1,7 @@
 module ChromeWatir
   class CheckBox < InputElement
     ELEMENT_TYPE = "input"
-    INPUT_TYPE = "checkbox"
+    INPUT_TYPE = ["checkbox"]
     def set
       assert_enabled
       @container.js_eval("element.checked = true")
