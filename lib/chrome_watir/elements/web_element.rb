@@ -31,9 +31,16 @@ module ChromeWatir
           @container.js_eval(script)
         when :index
           if(defined? self.class::INPUT_TYPE)
+            
+            strTypes = "("
+            self.class::INPUT_TYPE.each do |item|
+              strTypes = strTypes +'"' + item + '",'
+            end
+            strTypes = strTypes.chop + ")"
+            
             script = <<-EOF
-            var selected_elements = []
-            var types = #{self.class::INPUT_TYPE}
+            var selected_elements = [];
+            var types = new Array#{strTypes};
             var elements = document.getElementsByTagName("#{self.class::ELEMENT_TYPE}");
             for (var i=0; i<elements.length;i++)
             {
@@ -41,11 +48,11 @@ module ChromeWatir
               {
                 if(elements[i].getAttribute('type') == types[j])
                 {
-                  selected_elements = elements[i]
+                    selected_elements.push(elements[i]);
                 }
               }
             }
-            var element = selected_elements[#{@what - 1}]
+             element = selected_elements[#{@what - 1}];
             EOF
           else
             script = <<-EOF

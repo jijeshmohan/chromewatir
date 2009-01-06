@@ -16,6 +16,9 @@ class CheckBoxTest < Test::Unit::TestCase
     @browser.check_box(:name, "box1").clear
     assert_equal(false,@browser.check_box(:name, "box1").checked?)
   end
+  def test_check_box_index
+    assert_equal("verify1",@browser.check_box(:index,3).name)
+  end
   def test_check_box_properties
     assert_raises(UnknownObjectException , "UnknownObjectException was supposed to be thrown" ) {   @browser.check_box(:name, "noName").id   }  
     assert_raises(UnknownObjectException , "UnknownObjectException was supposed to be thrown" ) {   @browser.check_box(:name, "noName").name   }  

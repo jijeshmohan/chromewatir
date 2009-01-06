@@ -13,7 +13,8 @@ class LinkTest < Test::Unit::TestCase
   
   def test_link_has_image
       assert_equal(false,@browser.link(:text,"test1").has_image?)
-     assert_equal(true,@browser.link(:id,"img3").has_image?)
+     assert_equal(true,@browser.link(:index,3).has_image?)
+     assert_equal(false,@browser.link(:index,1).has_image?)
      assert_equal(true,@browser.link(:id,"img3").src.include?('html/images/button.jpg'))
   end
   def test_link_click
