@@ -23,6 +23,9 @@ module ChromeWatir
     def select_list(how,what)
       return SelectList.new(self,how,what)
     end
+    def text_area(how,what)
+      return TextArea.new(self,how,what)
+    end
     def wait_for_page_to_load
       default_time_out = 2
       sleep_time = 0.2
