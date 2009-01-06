@@ -1,5 +1,6 @@
 module ChromeWatir
   class SelectList < InputElement
+    ELEMENT_TYPE = "select"
     def clearSelection
       assert_enabled
       script = <<-EOS
