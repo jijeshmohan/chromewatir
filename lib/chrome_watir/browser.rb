@@ -20,10 +20,12 @@ module ChromeWatir
     end
     def back
       js_eval("history.back()")
+      wait_for_page_to_load
       read_socket
     end
     def forward
       js_eval("history.forward()")
+      wait_for_page_to_load
       read_socket
     end
     def page_source
