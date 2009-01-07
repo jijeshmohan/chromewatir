@@ -1,6 +1,7 @@
 require "setup"
 
 class TextAreaTest < Test::Unit::TestCase
+  include ChromeWatir::Exceptions
   def setup
     @browser = start_browser("textarea")
   end
@@ -22,13 +23,21 @@ class TextAreaTest < Test::Unit::TestCase
     assert_equal(false,@browser.text_area(:name,"txtMultiLine4").exist?)
   end  
   def test_textarea_set_clear
-    @browser.text_area(:name, "txtMultiLine1").append(" Some Text")
-    assert_equal("Hello World Some Text", @browser.text_area(:name, "txtMultiLine1").value )     
-    
+    assert_raises(ObjectDisabledException){@browser.text_area(:id, "txtDisabled").set "Hello"}
+    assert_raises(ObjectReadOnlyException){@browser.text_area(:id, "txtReadOnly").set "Hello"}
     @browser.text_area(:name, "txtMultiLine1").set("watir IE Controller")
     assert_equal("watir IE Controller", @browser.text_area(:name, "txtMultiLine1").value )  
-    
+  end
+  def test_textarea_append
+    assert_raises(ObjectDisabledException){@browser.text_area(:id, "txtDisabled").append "Hello"}
+    @browser.text_area(:name, "txtMultiLine1").append(" Some Text")
+    assert_equal("Hello World Some Text", @browser.text_area(:name, "txtMultiLine1").value )         
+  end
+  def test_textarea_clear
     @browser.text_area(:name, "txtMultiLine2").clear
-    assert_equal("" , @browser.text_area(:name, "txtMultiLine2").value )     
+    assert_equal("" , @browser.text_area(:name, "txtMultiLine2").value )         
+  end
+  def test_textarea_verify_contains
+    assert_equal(true , @browser.text_area(:name, "txtMultiLine2").verify_contains("Internet Explorer"))   
   end
 end
