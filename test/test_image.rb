@@ -8,14 +8,14 @@ class ImageTest < Test::Unit::TestCase
   def teardown
     @browser.close
   end
-  #~ def test_click_image
-    #~ @browser.image(:name, "disabler_test").click()
-    #~ assert_equal("Pass Page", @browser.title)
-    #~ @browser.back
-    #~ @browser.image(:name,"tsogpsb").click
-    #~ @browser.back
-    #~ @browser.image(:xpath, "//img[@name='disabler_test']").click
-  #~ end
+  def test_click_image
+    @browser.image(:name, "disabler_test").click()
+    assert_equal("Pass Page", @browser.title)
+    @browser.back
+    @browser.image(:name,"tsogpsb").click
+    @browser.back
+    @browser.image(:xpath, "//img[@name='disabler_test']").click
+  end
   def test_image_properties
     assert_raises(UnknownObjectException ) { @browser.image(:index, 82).name }
     assert_raises(UnknownObjectException ) { @browser.image(:index, 82).id }
