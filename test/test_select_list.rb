@@ -40,6 +40,10 @@ class SelectListTest < Test::Unit::TestCase
      @browser.select_list(:name, "sel1").select_value("o2") 
     assert_equal( ["Option 2" ] , @browser.select_list(:name, "sel1").get_selected_items)
   end
+  def test_select_list_type
+    assert_equal("select-multiple", @browser.select_list(:name, "sel2").type)
+    assert_equal("select-one", @browser.select_list(:name, "sel1").type)    
+  end
 end
 
  

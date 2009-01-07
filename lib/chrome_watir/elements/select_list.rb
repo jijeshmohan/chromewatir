@@ -102,7 +102,12 @@ module ChromeWatir
       @container.js_eval(script)
       @container.read_socket
       @container.js_eval("getSel();")
-     @container.read_socket
+      @container.read_socket
+    end
+    def type
+      assert_exist
+      @container.js_eval("element.type")
+      return @container.read_socket
     end
   end
 end
