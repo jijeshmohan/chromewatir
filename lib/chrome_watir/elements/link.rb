@@ -51,6 +51,5 @@ module ChromeWatir
       @container.js_eval("imgSrc();")
       return @container.read_socket
     end
- 
-end
+  end
 end
