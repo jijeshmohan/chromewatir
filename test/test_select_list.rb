@@ -31,6 +31,7 @@ class SelectListTest < Test::Unit::TestCase
     assert_equal( ["Option 1" ] , @browser.select_list(:name, "sel1").get_selected_items)
     @browser.select_list(:name, "sel2").select("Option 1") 
      assert_equal( ["Option 1" ,"Option 3","Option 6"  ] , @browser.select_list(:name, "sel2").get_selected_items) 
+      assert_raises(NoValueFoundException){ @browser.select_list(:name, "sel1").select("missing") }
   end
   def test_select_list_includes
   
@@ -39,6 +40,7 @@ class SelectListTest < Test::Unit::TestCase
   def test_select_list_select_value
      @browser.select_list(:name, "sel1").select_value("o2") 
     assert_equal( ["Option 2" ] , @browser.select_list(:name, "sel1").get_selected_items)
+    assert_raises(NoValueFoundException){ @browser.select_list(:name, "sel1").select_value("missing") }
   end
   def test_select_list_type
     assert_equal("select-multiple", @browser.select_list(:name, "sel2").type)

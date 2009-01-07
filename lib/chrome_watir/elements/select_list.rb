@@ -63,51 +63,47 @@ module ChromeWatir
       get_all_contents.include? text
     end
     def select_value value
-      assert_enabled
-      script = <<-EOS
-      var getVal = function() {
-      for(i=0; i < element.length; i++)
-          {
-            if(element.options[i].value == '#{value}' )
-            {
-             
-                  element.options[i].selected=true;
-              
-            }
-          }
-          
-        }
-      EOS
-      @container.js_eval(script)
-      @container.read_socket
-      @container.js_eval("getVal();")
-     @container.read_socket
+      select_item_value "value",value
     end
     def select item
-      assert_enabled
-      script = <<-EOS
-      var getSel  = function() {
-      for(i=0; i < element.length; i++)
-          {
-            if(element.options[i].text == '#{item}' )
-            {
-             
-                  element.options[i].selected=true;
-              
-            }
-          }
-          
-        }
-      EOS
-      @container.js_eval(script)
-      @container.read_socket
-      @container.js_eval("getSel();")
-      @container.read_socket
+      select_item_value "text",item
     end
     def type
       assert_exist
       @container.js_eval("element.type")
       return @container.read_socket
+    end
+  
+    def select_item_value type, value
+      assert_enabled
+      script = <<-EOS
+      var getSel  = function() {
+      var found= false;
+      for(i=0; i < element.length; i++)
+          {
+            if(element.options[i].#{type}== '#{value}' )
+            {
+             
+                  element.options[i].selected=true;
+                   found = true;
+                 break;
+            }
+          }
+          if(found)
+          {
+              return true;
+          }
+          else
+          {
+              return false;
+          }
+        }
+      EOS
+      @container.js_eval(script)
+      @container.read_socket
+      @container.js_eval("getSel();")
+       exist= @container.read_socket.strip
+       raise NoValueFoundException.new("Unable to find #{type}: #{value}") if exist.eql? "false"
     end
   end
 end
