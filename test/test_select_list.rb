@@ -17,20 +17,20 @@ class SelectListTest < Test::Unit::TestCase
         assert_equal(true,@browser.select_list(:name, "sel1").enabled?)   
   end
     
-  def test_select_list_getAllContents
+  def test_select_list_get_all_contents
          assert_equal( ["Option 1" ,"Option 2" , "Option 3" , "Option 4"] , 
-        @browser.select_list(:name, "sel1").getAllContents)   
+        @browser.select_list(:name, "sel1").get_all_contents)   
   end
   
-  def test_select_list_getSelectedItems
-     assert_equal( ["Option 3" ] , @browser.select_list(:name, "sel1").getSelectedItems) 
+  def test_select_list_get_selected_items
+     assert_equal( ["Option 3" ] , @browser.select_list(:name, "sel1").get_selected_items) 
     assert_equal(true, @browser.select_list(:name, 'sel2').selected?('Option 3'))
   end
   def test_select_list_select
     @browser.select_list(:name, "sel1").select("Option 1") 
-    assert_equal( ["Option 1" ] , @browser.select_list(:name, "sel1").getSelectedItems)
+    assert_equal( ["Option 1" ] , @browser.select_list(:name, "sel1").get_selected_items)
     @browser.select_list(:name, "sel2").select("Option 1") 
-     assert_equal( ["Option 1" ,"Option 3","Option 6"  ] , @browser.select_list(:name, "sel2").getSelectedItems) 
+     assert_equal( ["Option 1" ,"Option 3","Option 6"  ] , @browser.select_list(:name, "sel2").get_selected_items) 
   end
   def test_select_list_includes
   
@@ -38,7 +38,7 @@ class SelectListTest < Test::Unit::TestCase
   end
   def test_select_list_select_value
      @browser.select_list(:name, "sel1").select_value("o2") 
-    assert_equal( ["Option 2" ] , @browser.select_list(:name, "sel1").getSelectedItems)
+    assert_equal( ["Option 2" ] , @browser.select_list(:name, "sel1").get_selected_items)
   end
 end
 

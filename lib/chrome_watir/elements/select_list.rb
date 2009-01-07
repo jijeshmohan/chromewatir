@@ -1,7 +1,7 @@
 module ChromeWatir
   class SelectList < InputElement
     ELEMENT_TYPE = "select"
-    def clearSelection
+    def clear_selection
       assert_enabled
       script = <<-EOS
       var clearSel = function() {
@@ -17,8 +17,8 @@ module ChromeWatir
       @container.read_socket
       
     end
-    def getAllContents
-      assert_enabled
+    def get_all_contents
+      assert_exist
       script = <<-EOS
       var getAll= function() {
           var data="";
@@ -36,8 +36,8 @@ module ChromeWatir
       
     end
     
-    def getSelectedItems
-      assert_enabled
+    def get_selected_items
+      assert_exist
       script = <<-EOS
       var getSel = function() {
           var data="";
@@ -57,10 +57,10 @@ module ChromeWatir
     end
     
     def selected? text
-      getSelectedItems.include? text
+      get_selected_items.include? text
     end
     def includes? text
-      getAllContents.include? text
+      get_all_contents.include? text
     end
     def select_value value
       assert_enabled
