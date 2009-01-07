@@ -39,5 +39,6 @@ class TextAreaTest < Test::Unit::TestCase
   end
   def test_textarea_verify_contains
     assert_equal(true , @browser.text_area(:name, "txtMultiLine2").verify_contains("Internet Explorer"))   
+    assert_equal(false , @browser.text_area(:name, "txtMultiLine2").verify_contains("Google Chrome"))   
   end
 end
