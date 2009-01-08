@@ -1,6 +1,7 @@
 require "setup"
 
 class TextFieldTest < Test::Unit::TestCase
+  include ChromeWatir::Exceptions
   def setup
     @browser = start_browser("textfields1")
   end
@@ -8,6 +9,7 @@ class TextFieldTest < Test::Unit::TestCase
     @browser.close
   end
   def test_set_text_field
+    assert_raise(MissingWayOfFindingObjectException){@browser.text_field(:none, "b2").click}    
     @browser.text_field(:name, "text1").set "ni hao"
     assert_equal("ni hao",@browser.text_field(:name,"text1").value)
   end
