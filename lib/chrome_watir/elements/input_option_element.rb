@@ -1,16 +1,22 @@
 module ChromeWatir
+
+#base class for check box and radio button
   class InputOptionElement < InputElement
     ELEMENT_TYPE = "input"
+    
+    #set checkbox/radio
     def set
       assert_enabled
       @container.js_eval("element.checked = true")
       @container.read_socket
     end
+    #clear checkbox/radio
     def clear
       assert_enabled
       @container.js_eval("element.checked = false")
       @container.read_socket
     end
+    #return true if checkbox/radio checked
     def checked?
       assert_exist
       @container.js_eval("element.checked")

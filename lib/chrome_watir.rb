@@ -24,5 +24,9 @@ require elements_directory + "check_box"
 require elements_directory + "link"
 require elements_directory + "select_list"
 
+=begin rdoc
+*ChromeWatir* is an implementation of Watir API for Google Chrome browser. 
+The scripting is simple and is similar to Watir
+=end
 module ChromeWatir
 end

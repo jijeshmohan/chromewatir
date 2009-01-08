@@ -1,5 +1,6 @@
 
 module ChromeWatir
+#This class is the chrome-watir representation of an image
   class Image < WebElement
     ELEMENT_TYPE = "img"
     def locate

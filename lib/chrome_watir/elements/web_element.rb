@@ -1,4 +1,6 @@
 module ChromeWatir
+
+#Base class for html elements. This is not a class that users would normally access. 
   class WebElement
     include ChromeWatir::Exceptions
     
@@ -82,6 +84,8 @@ module ChromeWatir
       exist = @container.read_socket
       raise UnknownObjectException.new(ChromeWatir::Exceptions.message_for_unable_to_locate(@how, @what)) if exist.eql? "false"
     end
+    
+    #Returns whether this element actually exists. 
     def exist?
       begin
         assert_exist
@@ -99,6 +103,8 @@ module ChromeWatir
       read_only = @container.read_socket
       raise(ObjectReadOnlyException, "object #{@how} and #{@what} is read only") if read_only.eql? "true"      
     end
+    
+    #Returns true if the element is enabled, false if it isn‘t. 
     def enabled?
       begin
         assert_enabled
@@ -107,6 +113,8 @@ module ChromeWatir
       end
       return true
     end
+    
+    #This method clicks the active element. raises: UnknownObjectException if the object is not found ObjectDisabledException if the object is currently disabled 
     def click
       assert_enabled
       script = <<-EOS
@@ -121,12 +129,15 @@ module ChromeWatir
       @container.read_socket
       @container.wait_for_page_to_load
     end
+    
+    #Return the innerText of the object Raise an ObjectNotFound exception if the object cannot be found 
     def text
       assert_exist
       @container.js_eval("element.innerText")
       return @container.read_socket.strip
     end
     
+    #Returns true if the element is disabled, false if it isn‘t. 
     def disabled
       assert_exist
       return  !enabled?

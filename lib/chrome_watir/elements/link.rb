@@ -1,4 +1,5 @@
 module ChromeWatir
+#This class is the chrome-watir representation of a link
   class Link < WebElement
     ELEMENT_TYPE = "a"
     def locate
@@ -19,7 +20,7 @@ module ChromeWatir
           super()
       end
     end
-    
+    #if an image is used as part of the link, this will return true 
     def has_image?
       exist?
       script = <<-EOS
@@ -36,6 +37,7 @@ module ChromeWatir
       return @container.read_socket.strip.include?("true")
     end
  
+ #this method returns the src of an image, if an image is used as part of the link 
     def src
       exist?
       script = <<-EOS
