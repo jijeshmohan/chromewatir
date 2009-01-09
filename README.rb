@@ -13,7 +13,7 @@ To Install ChromeWatir:
      > gem install chrome_watir
 
 Where To Use:
-   chrome_watir works on Windows XP, Linux, Mac. It has been tested on XP, Ubuntu Linux and Mac OSX.
+   chrome_watir works on Windows. It has been tested on XP with Google Chrome.
    If you have watir or firewatir scripts you must be able to use those on ChromeWatir by making a
    few changes.
    
