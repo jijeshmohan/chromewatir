@@ -9,11 +9,14 @@ class FrameTest < Test::Unit::TestCase
   end
   def test_frame_exist
     assert_equal(false,@browser.frame(:name, "noFrame").exist?)
-    assert_equal(true,@browser.frame(:name, "buttonFrame2").exist?)
+    assert_equal(true,@browser.frame(:name, "buttonFrame").exist?)
   end
-  #~ def test_nested_element
-    #~ assert_equal("OldValue", @browser.frame(:name, "buttonFrame").text_field(:id, "text_id").value)
-    #~ assert_match(/Blank page to fill in the frames/, @browser.frame(:name, "buttonFrame2").page_source)
-    #~ assert_equal(true,@browser.frame(:name, "buttonFrame").button(:id, "b2").exist?)
-  #~ end
+  def test_inside_frame
+    assert_equal('OldValue',@browser.frame(:name, "buttonFrame").text_field(:id,'text_id').value)
+    text_obj= @browser.frame(:name, "buttonFrame").text_field(:id,'text_id')
+    text_obj.set 'sample'
+    assert_equal(true, @browser.frame(:name, "buttonFrame").button(:id, "b2").enabled?)
+    assert_equal('sample',text_obj.value)
+    
+  end
 end

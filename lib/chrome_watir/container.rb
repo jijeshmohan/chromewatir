@@ -20,7 +20,7 @@ there are many methods available to the Button object
 
 =end 
   module Container
-  include ChromeWatir::Exceptions
+    include ChromeWatir::Exceptions
     @@command_to_run = ""
     
     # This is the main method for accessing a text field. Usually an <input type = text> HTML tag. or a text area - a  <textarea> tag
@@ -161,26 +161,7 @@ there are many methods available to the Button object
     end
     
     def frame(how,what)
-      frame = Frame.new(self,how,what)
-      frame.locate
-      set_container
-      return frame
-    end
-    
-    def set_container
-      js_eval("var container = element.contentDocument;")
-    end
-    
-    def release_container
-      js_eval("var container = document;")
-    end
-    
-    #returns the html source of the current page
-    def page_source
-      js_eval("container.body.innerHTML")
-      source = read_socket
-      release_container
-      return source
+      return Frame.new(self,how,what)
     end
     
     #chrome will wait the page to load.

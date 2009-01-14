@@ -11,24 +11,31 @@ module ChromeWatir
       @what = what
     end
     def locate
+      if @container.is_a?(Browser)
+          @container.js_eval("var element = document;")
+      else
+        @container.locate
+      end
+      
       case @how
         when :id
-          @container.js_eval("var element = container.getElementById('#{@what}');")
+          @container.js_eval("element = element.getElementById('#{@what}');")
         when :name
-          @container.js_eval("var element = container.getElementsByName('#{@what}')[0];")
+          @container.js_eval("element = element.getElementsByName('#{@what}')[0];")
         when :xpath
-          script = "var element = container.evaluate(\"#{@what}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
+          script = "element = element.evaluate(\"#{@what}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
           @container.js_eval(script)
         when :value
           script = <<-EOF
           var foundElement = false;
-          for (var i = 0; i < document.getElementsByTagName("INPUT").length; i++) {
-            var element = document.getElementsByTagName("INPUT")[i];
-            if (element.value == '#{@what}') {
+          for (var i = 0; i < element.getElementsByTagName("INPUT").length; i++) {
+            var ele = element.getElementsByTagName("INPUT")[i];
+            if (ele.value == '#{@what}') {
               foundElement = true;
               break;
             }
           }
+          element=ele;
           EOF
           @container.js_eval(script)
         when :index
@@ -43,7 +50,7 @@ module ChromeWatir
             script = <<-EOF
             var selected_elements = [];
             var types = new Array#{strTypes};
-            var elements = document.getElementsByTagName("#{self.class::ELEMENT_TYPE}");
+            var elements = element.getElementsByTagName("#{self.class::ELEMENT_TYPE}");
             for (var i=0; i<elements.length;i++)
             {
               for (var j=0; j<types.length;j++)
@@ -58,7 +65,7 @@ module ChromeWatir
             EOF
           else
             script = <<-EOF
-            var element = document.getElementsByTagName("#{self.class::ELEMENT_TYPE}")[#{@what - 1}];
+            element = element.getElementsByTagName("#{self.class::ELEMENT_TYPE}")[#{@what - 1}];
             EOF
           end
           @container.js_eval(script)
@@ -66,21 +73,8 @@ module ChromeWatir
           raise MissingWayOfFindingObjectException, "#{@how} is an unknown way of finding an <#{self.class.to_s}> element (#{@what})"
       end
     end
-    def is_frame?
-      @container.js_eval("element.nodeName")
-      value = @container.read_socket
-      puts value
-      if(value.eql? "FRAME")
-        return true
-      else
-        return false
-      end
-    end
-    private :is_frame?
-    
     def assert_exist
       locate
-      puts is_frame?
       script = <<-EOS
       var exist = function() {
         if (element) {
@@ -104,10 +98,8 @@ module ChromeWatir
         assert_exist
       rescue
         return false
-      ensure
-        @container.release_container
       end
-    return true
+      return true
     end
     def assert_enabled
       assert_exist
@@ -164,9 +156,7 @@ module ChromeWatir
                     assert_exist
                     begin
                       @container.js_eval(\"element.getAttribute('#{attribute_name}')\")
-                      value = @container.read_socket
-                      @container.release_container
-                      return value
+                      return @container.read_socket
                     rescue
                       ''
                     end
@@ -178,9 +168,7 @@ module ChromeWatir
                     assert_exist
                     begin
                       @container.js_eval(\"element.getAttribute('#{method_name}')\")
-                      value = @container.read_socket
-                      @container.release_container
-                      return value
+                      return @container.read_socket
                     rescue
                         ''
                     end

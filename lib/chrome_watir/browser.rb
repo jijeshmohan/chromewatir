@@ -11,7 +11,6 @@ module ChromeWatir
       @pid = Launcher.new.start(url,@chrome_path)
       read_socket
       wait_for_page_to_load
-      release_container
     end
     
     # returns the current url, as displayed in the address bar of the browser 
@@ -36,6 +35,12 @@ module ChromeWatir
     def forward
       js_eval("history.forward()")
       wait_for_page_to_load
+    end
+    
+    #returns the html source of the current page
+    def page_source
+      js_eval("document.body.innerHTML")
+      return read_socket
     end
     
     #close the browser
