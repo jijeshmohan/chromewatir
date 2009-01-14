@@ -13,11 +13,11 @@ module ChromeWatir
     def locate
       case @how
         when :id
-          @container.js_eval("var element = document.getElementById('#{@what}');")
+          @container.js_eval("var element = container.getElementById('#{@what}');")
         when :name
-          @container.js_eval("var element = document.getElementsByName('#{@what}')[0];")
+          @container.js_eval("var element = container.getElementsByName('#{@what}')[0];")
         when :xpath
-          script = "var element = document.evaluate(\"#{@what}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
+          script = "var element = container.evaluate(\"#{@what}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
           @container.js_eval(script)
         when :value
           script = <<-EOF
@@ -66,8 +66,21 @@ module ChromeWatir
           raise MissingWayOfFindingObjectException, "#{@how} is an unknown way of finding an <#{self.class.to_s}> element (#{@what})"
       end
     end
+    def is_frame?
+      @container.js_eval("element.nodeName")
+      value = @container.read_socket
+      puts value
+      if(value.eql? "FRAME")
+        return true
+      else
+        return false
+      end
+    end
+    private :is_frame?
+    
     def assert_exist
       locate
+      puts is_frame?
       script = <<-EOS
       var exist = function() {
         if (element) {
@@ -91,8 +104,10 @@ module ChromeWatir
         assert_exist
       rescue
         return false
+      ensure
+        @container.release_container
       end
-      return true
+    return true
     end
     def assert_enabled
       assert_exist
@@ -149,7 +164,9 @@ module ChromeWatir
                     assert_exist
                     begin
                       @container.js_eval(\"element.getAttribute('#{attribute_name}')\")
-                      return @container.read_socket
+                      value = @container.read_socket
+                      @container.release_container
+                      return value
                     rescue
                       ''
                     end
@@ -161,7 +178,9 @@ module ChromeWatir
                     assert_exist
                     begin
                       @container.js_eval(\"element.getAttribute('#{method_name}')\")
-                      return @container.read_socket
+                      value = @container.read_socket
+                      @container.release_container
+                      return value
                     rescue
                         ''
                     end

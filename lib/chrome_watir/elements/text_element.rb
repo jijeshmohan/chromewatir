@@ -20,7 +20,9 @@ module ChromeWatir
     def value
       assert_exist
       @container.js_eval("element.value")
-      return @container.read_socket
+      value = @container.read_socket
+      @container.release_container
+      return value
     end
     
     #Appends the specified string value to the contents of the text box. 
