@@ -164,6 +164,10 @@ there are many methods available to the Button object
       return Frame.new(self,how,what)
     end
     
+    def div(how,what)
+      return Div.new(self,how,what)
+    end
+    
     #chrome will wait the page to load.
     def wait_for_page_to_load
       default_time_out = 2
