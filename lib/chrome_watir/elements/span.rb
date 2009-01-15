@@ -1,6 +1,6 @@
 module ChromeWatir
-  class Div < WebElement
+  class Span < WebElement
     include Container
-     INPUT_TYPE = ["div"]
+   INPUT_TYPE = ["span"]
   end
 end
