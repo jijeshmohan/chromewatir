@@ -18,10 +18,10 @@ class DivTest < Test::Unit::TestCase
   end
   def test_inside_div
     second_text=@browser.div(:id, "text_fields1").text_field(:index,2)
-    @browser.text_field(:name, "div_text2").set 's'
+    @browser.text_field(:name, "div_text2").set 'watir'
     @browser.div(:id, "text_fields1").text_field(:index,1).set 'sample'
     assert_equal('sample', @browser.text_field(:name, "div_text1").value)
-    assert_equal('s', second_text.value)
+    assert_equal('watir', second_text.value)
   end
   def test_span_exist
     assert_equal(true,@browser.span(:id, "span1").exist?)
@@ -35,9 +35,9 @@ class DivTest < Test::Unit::TestCase
   
    def test_inside_span
     second_text=@browser.span(:name, "spanName").text_field(:index,2)
-    @browser.text_field(:name, "span_text2").set 's'
+    @browser.text_field(:name, "span_text2").set 'watir'
     @browser.span(:name, "spanName").text_field(:index,1).set 'sample'
     assert_equal('sample', @browser.text_field(:name, "span_text1").value)
-    assert_equal('s', second_text.value)
+    assert_equal('watir', second_text.value)
   end
 end
