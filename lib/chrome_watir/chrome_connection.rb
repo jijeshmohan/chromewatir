@@ -12,6 +12,7 @@ module ChromeWatir
       @@connection
     end
     def Connection.close
+      @@connection.shutdown if @@connection
       @@connection = nil
     end
   end
