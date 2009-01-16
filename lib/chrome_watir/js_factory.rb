@@ -7,7 +7,7 @@ module ChromeWatir
          script=""
           case how
             when :index
-              puts element.class::INPUT_TYPES
+     
               if(defined? element.class::INPUT_TYPES)
                 js_input_types = "("
                 element.class::INPUT_TYPES.each do |item|
@@ -32,7 +32,7 @@ module ChromeWatir
 
                 for(var i=0; i<element_types.length; i++)
                 {
-                  elements.concat(element.getElementsByTagName(types[i]));
+                  elements.concat(element.getElementsByTagName(element_types[i]));
                 }
                 
                 for (var i=0; i<elements.length;i++)
@@ -63,7 +63,7 @@ module ChromeWatir
                 var element_types = new Array#{js_element_types};
                 for(var i=0; i<element_types.length; i++)
                 {
-                  elements.concat(element.getElementsByTagName(types[i]));
+                  elements.concat(element.getElementsByTagName(element_types[i]));
                 }                
                 element = elements[#{what - 1}];
                 EOF
@@ -104,7 +104,7 @@ module ChromeWatir
                 var element_types = new Array#{js_element_types};
                 for(var i=0; i<element_types.length; i++)
                 {
-                  elements.concat(element.getElementsByTagName(types[i]));
+                  elements.concat(element.getElementsByTagName(element_types[i]));
                 }
                 for (var i=0; i<elements.length;i++)
                 {
