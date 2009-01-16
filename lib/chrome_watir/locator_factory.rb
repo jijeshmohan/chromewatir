@@ -7,7 +7,6 @@ module ChromeWatir
          script=""
           case how
             when :index
-     
               if(defined? element.class::INPUT_TYPES)
                 js_input_types = "("
                 element.class::INPUT_TYPES.each do |item|
@@ -29,10 +28,13 @@ module ChromeWatir
                 var elements = [];
                 var element_types = new Array#{js_element_types};
                 var input_types = new Array#{js_input_types};
-
                 for(var i=0; i<element_types.length; i++)
                 {
-                  elements.concat(element.getElementsByTagName(element_types[i]));
+                  filtered_elements = element.getElementsByTagName(element_types[i]);
+                  for(var j=0; j<filtered_elements.length; j++)
+                  {
+                    elements.push(filtered_elements[j]);
+                  }
                 }
                 
                 for (var i=0; i<elements.length;i++)
@@ -63,8 +65,12 @@ module ChromeWatir
                 var element_types = new Array#{js_element_types};
                 for(var i=0; i<element_types.length; i++)
                 {
-                  elements.concat(element.getElementsByTagName(element_types[i]));
-                }                
+                  filtered_elements = element.getElementsByTagName(element_types[i]);
+                  for(var j=0; j<filtered_elements.length; j++)
+                  {
+                    elements.push(filtered_elements[j]);
+                  }
+                }              
                 element = elements[#{what - 1}];
                 EOF
               end
@@ -104,7 +110,11 @@ module ChromeWatir
                 var element_types = new Array#{js_element_types};
                 for(var i=0; i<element_types.length; i++)
                 {
-                  elements.concat(element.getElementsByTagName(element_types[i]));
+                  filtered_elements = element.getElementsByTagName(element_types[i]);
+                  for(var j=0; j<filtered_elements.length; j++)
+                  {
+                    elements.push(filtered_elements[j]);
+                  }
                 }
                 for (var i=0; i<elements.length;i++)
                 {
@@ -127,22 +137,22 @@ module ChromeWatir
             else
               element_type = element.class::ELEMENT_TYPE
               element_type = [element_type] unless element_type.is_a? Array 
-              strTypes = "("
+              js_element_types = "("
               element_type.each do |item|
-                strTypes = strTypes +'"' + item + '",'
+                js_element_types = js_element_types +'"' + item + '",'
               end
-              strTypes = strTypes.chop + ")"
+              js_element_types = js_element_types.chop + ")"
               script = <<-EOF
                 var foundElement = false;
                 var selected_element = null;
-                var types = new Array#{strTypes};
-                 for (var j=0; j<types.length;j++)
+                var element_types = new Array#{js_element_types};
+                 for (var j=0; j<element_types.length;j++)
                 {
                     if(foundElement)
                     {
                       break;
                     }
-                      var elements = element.getElementsByTagName(types[j]);
+                      var elements = element.getElementsByTagName(element_types[j]);
                       for (var i=0; i<elements.length;i++)
                       {             
                           if(elements[i].getAttribute('#{how.to_s}') == "#{what}")
