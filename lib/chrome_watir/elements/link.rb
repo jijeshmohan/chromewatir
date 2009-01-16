@@ -3,12 +3,17 @@ module ChromeWatir
   class Link < WebElement
     ELEMENT_TYPE = "a"
     def locate
+      if @container.is_a?(Browser)
+          @container.js_eval("var element = document;")
+      else
+        @container.locate
+      end 
       case @how
         when :text
           script = <<-EOF
           var foundElement = false;
-          for (var i = 0; i < document.links.length; i++) {
-            var element = document.links[i];
+          for (var i = 0; i < element.links.length; i++) {
+            var element = element.links[i];
             if (element.text == '#{@what}') {
               foundElement = true;
               break;

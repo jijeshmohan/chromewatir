@@ -12,8 +12,12 @@ module ChromeWatir
       @@connection
     end
     def Connection.close
+      begin
       @@connection.shutdown if @@connection
       @@connection = nil
+      rescue
+        # forceful closing will trigger exception
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 module ChromeWatir
   class Div < WebElement
     include Container
-     INPUT_TYPE = ["div"]
+     ELEMENT_TYPE = "div"
   end
 end

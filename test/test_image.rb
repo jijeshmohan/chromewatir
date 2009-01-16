@@ -12,8 +12,6 @@ class ImageTest < Test::Unit::TestCase
     @browser.image(:name, "disabler_test").click()
     assert_equal("Pass Page", @browser.title)
     @browser.back
-    @browser.image(:name,"tsogpsb").click
-    @browser.back
     @browser.image(:xpath, "//img[@name='disabler_test']").click
   end
   def test_image_properties

@@ -15,59 +15,18 @@ module ChromeWatir
           @container.js_eval("var element = document;")
       else
         @container.locate
-      end
-      
+      end 
       case @how
-        when :id
-          @container.js_eval("element = element.getElementById('#{@what}');")
-        when :name
-          @container.js_eval("element = element.getElementsByName('#{@what}')[0];")
+        when :id,:name
+          @container.js_eval(JsFactory.get_locate_js(self,@how,@what))
         when :xpath
           script = "element = element.evaluate(\"#{@what}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
           @container.js_eval(script)
         when :value
-          script = <<-EOF
-          var foundElement = false;
-          for (var i = 0; i < element.getElementsByTagName("INPUT").length; i++) {
-            var ele = element.getElementsByTagName("INPUT")[i];
-            if (ele.value == '#{@what}') {
-              foundElement = true;
-              break;
-            }
-          }
-          element=ele;
-          EOF
+          script = JsFactory.get_locate_js(self,@how,@what) 
           @container.js_eval(script)
         when :index
-          if(defined? self.class::INPUT_TYPE)
-            
-            strTypes = "("
-            self.class::INPUT_TYPE.each do |item|
-              strTypes = strTypes +'"' + item + '",'
-            end
-            strTypes = strTypes.chop + ")"
-            
-            script = <<-EOF
-            var selected_elements = [];
-            var types = new Array#{strTypes};
-            var elements = element.getElementsByTagName("#{self.class::ELEMENT_TYPE}");
-            for (var i=0; i<elements.length;i++)
-            {
-              for (var j=0; j<types.length;j++)
-              {
-                if(elements[i].getAttribute('type') == types[j])
-                {
-                    selected_elements.push(elements[i]);
-                }
-              }
-            }
-             element = selected_elements[#{@what - 1}];
-            EOF
-          else
-            script = <<-EOF
-            element = element.getElementsByTagName("#{self.class::ELEMENT_TYPE}")[#{@what - 1}];
-            EOF
-          end
+          script = JsFactory.get_locate_js(self,@how,@what) 
           @container.js_eval(script)
         else
           raise MissingWayOfFindingObjectException, "#{@how} is an unknown way of finding an <#{self.class.to_s}> element (#{@what})"
@@ -77,8 +36,15 @@ module ChromeWatir
       locate
       script = <<-EOS
       var exist = function() {
-        if (element) {
-          return true;
+        if(foundElement)
+        {
+          if (element) {
+            return true;
+          }
+          else
+          {
+           return false;
+          }
         }
         else {
           return false;
