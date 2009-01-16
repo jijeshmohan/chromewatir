@@ -18,15 +18,15 @@ module ChromeWatir
       end 
       case @how
         when :id,:name
-          @container.js_eval(JsFactory.get_locate_js(self,@how,@what))
+          @container.js_eval(LocatorFactory.get_locate_js(self,@how,@what))
         when :xpath
           script = "element = element.evaluate(\"#{@what}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;"
           @container.js_eval(script)
         when :value
-          script = JsFactory.get_locate_js(self,@how,@what) 
+          script = LocatorFactory.get_locate_js(self,@how,@what) 
           @container.js_eval(script)
         when :index
-          script = JsFactory.get_locate_js(self,@how,@what) 
+          script = LocatorFactory.get_locate_js(self,@how,@what) 
           @container.js_eval(script)
         else
           raise MissingWayOfFindingObjectException, "#{@how} is an unknown way of finding an <#{self.class.to_s}> element (#{@what})"

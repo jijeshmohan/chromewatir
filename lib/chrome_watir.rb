@@ -10,7 +10,7 @@ require lib_directory + "exceptions"
 require lib_directory + "container"
 require lib_directory + "launcher"
 require lib_directory + "browser"
-require lib_directory + "js_factory"
+require lib_directory + "locator_factory"
 
 require elements_directory + "web_element"
 require elements_directory + "input_element"

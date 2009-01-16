@@ -1,7 +1,7 @@
 module ChromeWatir
 
 #A Factory class for javascripts
-  class JsFactory
+  class LocatorFactory
      class << self
        def get_locate_js element,how,what
          script=""
