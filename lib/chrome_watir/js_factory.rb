@@ -64,6 +64,10 @@ module ChromeWatir
                       var elements = element.getElementsByTagName("#{element.class::ELEMENT_TYPE}");
                       for (var i=0; i<elements.length;i++)
                       {
+                        if(foundElement)
+                          {
+                            break;
+                          }
                         for (var j=0; j<types.length;j++)
                         {
                           if(elements[i].getAttribute('type') == types[j] && elements[i].getAttribute("#{how.to_s}") == "#{what}")
