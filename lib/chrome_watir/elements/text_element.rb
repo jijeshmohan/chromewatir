@@ -1,7 +1,6 @@
 module ChromeWatir
 #This is the base class for text field and text area
   class TextElement < InputElement
-    
     #Sets the contents of the text box to the specified text value 
     def set(text)
       assert_enabled

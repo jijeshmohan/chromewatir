@@ -1,9 +1,7 @@
 module ChromeWatir
 
 #base class for check box and radio button
-  class InputOptionElement < InputElement
-    ELEMENT_TYPE = "input"
-    
+  class InputOptionElement < InputElement    
     #set checkbox/radio
     def set
       assert_enabled
