@@ -28,28 +28,62 @@ module ChromeWatir
                 var elements = [];
                 var element_types = new Array#{js_element_types};
                 var input_types = new Array#{js_input_types};
-                for(var i=0; i<element_types.length; i++)
-                {
-                  filtered_elements = element.getElementsByTagName(element_types[i]);
-                  for(var j=0; j<filtered_elements.length; j++)
-                  {
-                    elements.push(filtered_elements[j]);
-                  }
-                }
+               
+               var indexCont=0;
+               elements = element.childNodes;
                 
                 for (var i=0; i<elements.length;i++)
                 {
-                  for (var j=0; j<input_types.length;j++)
+                  if(foundElement==true)
                   {
-                    if(elements[i].getAttribute('type') == input_types[j])
+                    break;
+                  }
+                
+                  for(var k=0;k<element_types.length;k++)
+                  {
+                  
+                       if(foundElement==true)
+                      {
+                        break;
+                      }
+                  
+                    if(element[i].tagName.toUpperCase()==element_types[k].toUpperCase())
                     {
-                        selected_elements.push(elements[i]);
-                        foundElement=true;
+                          if(element[i].tagName.toUpperCase()=="BUTTON")
+                          {
+                              indexCont=indexCont+1;
+                                if(indexCount==#{what})
+                                {
+                                    element=elements[i];
+                                    foundElement=true;
+                                    break;
+                                }
+                          
+                          }
+                          else
+                          {
+                                  for (var j=0; j<input_types.length;j++)
+                                  {
+                                    if(elements[i].getAttribute('type') == input_types[j])
+                                    {
+                                        indexCont=indexCont+1;
+                                        if(indexCount==#{what})
+                                        {
+                                            element=elements[i];
+                                            foundElement=true;
+                                            break;
+                                        }
+                                    }
+                             
+                                  }
+                          }
                     }
                   }
+                     
                 }
-                 element = selected_elements[#{what - 1}];
+             
                 EOF
+                puts script
               else
                 element_type = element.class::ELEMENT_TYPE
                 element_type = [element_type] unless element_type.is_a? Array 
@@ -122,6 +156,13 @@ module ChromeWatir
                     {
                       break;
                     }
+                    if(elements[i].tagName.toUpperCase()=="BUTTON" && elements[i].getAttribute("#{how.to_s}") == "#{what}")
+                    {
+                        selected_element=elements[i];
+                        foundElement = true;
+                        break;
+                    
+                    }
                   for (var j=0; j<input_types.length;j++)
                   {
                     if(elements[i].getAttribute('type') == input_types[j] && elements[i].getAttribute("#{how.to_s}") == "#{what}")
@@ -130,6 +171,7 @@ module ChromeWatir
                         foundElement = true;
                         break;
                     }
+                    
                   }
                 }
                  element = selected_element;
@@ -167,7 +209,6 @@ module ChromeWatir
                 EOF
             end
           end
-          puts script
           script
        end
       end
