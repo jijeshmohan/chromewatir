@@ -95,17 +95,28 @@ module ChromeWatir
 
                 script = <<-EOF
                 var foundElement = false;
-                var elements = [];
+                var elements = null;
                 var element_types = new Array#{js_element_types};
+                var indexCount=0;
                 for(var i=0; i<element_types.length; i++)
                 {
                   filtered_elements = element.getElementsByTagName(element_types[i]);
                   for(var j=0; j<filtered_elements.length; j++)
                   {
-                    elements.push(filtered_elements[j]);
+                    indexCount=indexCount+1;
+                    if(indexCount==#{what})
+                    {
+                        foundElement=true;
+                        element=filtered_elements[j];
+                        break;
+                    }
+                  }
+                  if(foundElement)
+                  {
+                    break;
                   }
                 }              
-                element = elements[#{what - 1}];
+             
                 EOF
               end
             when :value

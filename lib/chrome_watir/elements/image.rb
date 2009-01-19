@@ -43,6 +43,7 @@ module ChromeWatir
           }
           element=element1;
           EOF
+
           @container.js_eval(script)
         else
           super()

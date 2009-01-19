@@ -34,6 +34,6 @@ class ImageTest < Test::Unit::TestCase
     assert_equal('square_image', @browser.image(:id, 'square').title)    
     
       assert_equal('images/circle.jpg',@browser.image(:alt, "circle").src)
-      assert_equal('circle',@browser.image(:src, "images/circle.jpg").alt)    
+      assert_equal('',@browser.image(:src, "images/circle.jpg").alt)    
   end
 end
