@@ -29,8 +29,8 @@ module ChromeWatir
                 var element_types = new Array#{js_element_types};
                 var input_types = new Array#{js_input_types};
                
-               var indexCont=0;
-               elements = element.childNodes;
+               var indexCount=0;
+               elements = element.getElementsByTagName("*");
                 
                 for (var i=0; i<elements.length;i++)
                 {
@@ -47,11 +47,11 @@ module ChromeWatir
                         break;
                       }
                   
-                    if(element[i].tagName.toUpperCase()==element_types[k].toUpperCase())
+                    if(elements[i].tagName.toUpperCase()==element_types[k].toUpperCase())
                     {
-                          if(element[i].tagName.toUpperCase()=="BUTTON")
+                          if(elements[i].tagName.toUpperCase()=="BUTTON")
                           {
-                              indexCont=indexCont+1;
+                              indexCount=indexCount+1;
                                 if(indexCount==#{what})
                                 {
                                     element=elements[i];
@@ -66,7 +66,7 @@ module ChromeWatir
                                   {
                                     if(elements[i].getAttribute('type') == input_types[j])
                                     {
-                                        indexCont=indexCont+1;
+                                        indexCount=indexCount+1;
                                         if(indexCount==#{what})
                                         {
                                             element=elements[i];
@@ -83,7 +83,7 @@ module ChromeWatir
                 }
              
                 EOF
-                puts script
+
               else
                 element_type = element.class::ELEMENT_TYPE
                 element_type = [element_type] unless element_type.is_a? Array 
