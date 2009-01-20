@@ -1,4 +1,5 @@
 module ChromeWatir
+  #This class a chrome-watir representation of frame and iframe
   class Frame < WebElement
     include Container
     ELEMENT_TYPE=['frame','iframe']

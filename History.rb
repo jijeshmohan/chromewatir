@@ -1,7 +1,11 @@
 =begin rdoc
-== 1.0.0 2009-01-09
+== 1.4.0 2009-01-20
 
 * 1 major release:
   * Initial release of chrome_watir
+  
+* 2 minor release:
+  * Added support containers Frame, Div, Span
+  * modified locators.
 =end
 

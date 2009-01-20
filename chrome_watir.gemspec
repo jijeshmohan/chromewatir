@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = %q{chrome_watir}
-  s.version = "1.0.0"
+  s.version = "1.4.0"
 
   s.specification_version = 1.2 if s.respond_to? :specification_version=
 
