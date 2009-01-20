@@ -6,7 +6,6 @@ module ChromeWatir
     def locate
       case @how
         when :alt
-          
           if @container.is_a?(Browser)
               @container.js_eval("var element = document;")
           else

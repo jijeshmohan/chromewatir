@@ -12,8 +12,9 @@ module ChromeWatir
         when :text
           script = <<-EOF
           var foundElement = false;
-          for (var i = 0; i < element.links.length; i++) {
-            var element = element.links[i];
+          var container = element;
+          for (var i = 0; i < container.links.length; i++) {
+            var element = container.links[i];
             if (element.text == '#{@what}') {
               foundElement = true;
               break;
