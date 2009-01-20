@@ -7,8 +7,10 @@ module ChromeWatir
          script=""
           case how
             when :index
+            
               if(defined? element.class::INPUT_TYPES)
-                js_input_types = "("
+
+               js_input_types = "("
                 element.class::INPUT_TYPES.each do |item|
                   js_input_types = js_input_types +'"' + item + '",'
                 end
@@ -16,6 +18,7 @@ module ChromeWatir
                 
                 element_type = element.class::ELEMENT_TYPE
                 element_type = [element_type] unless element_type.is_a? Array 
+                
                 js_element_types = "("
                 element_type.each do |item|
                   js_element_types = js_element_types +'"' + item + '",'
