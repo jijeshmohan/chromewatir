@@ -13,15 +13,15 @@ module ChromeWatir
           end 
           script = <<-EOF
           var foundElement = false;
-          var element1=null;
-          for (var i = 0; i < element.images.length; i++) {
-            element1 = element.images[i];
-            if (element1.alt== '#{@what}') {
+          var elements = element.getElementsByTagName('img');
+          for (var i = 0; i < elements.length; i++) {
+            if (elements[i].alt== '#{@what}') {
               foundElement = true;
+              element=elements[i];
               break;
             }
           }
-          element=element1;
+          
           EOF
           @container.js_eval(script)
         when :src
@@ -32,15 +32,14 @@ module ChromeWatir
           end 
           script = <<-EOF
           var foundElement = false;
-          var element1=null;
-          for (var i = 0; i < element.images.length; i++) {
-            element1 = element.images[i];
-            if (element1.src.indexOf("#{@what}") > 0 ) {
+          var elements = element.getElementsByTagName('img');
+          for (var i = 0; i < elements.length; i++) {
+            if (elements[i].src.indexOf("#{@what}") > 0 ) {
               foundElement = true;
+              element=elements[i];
               break;
             }
           }
-          element=element1;
           EOF
 
           @container.js_eval(script)

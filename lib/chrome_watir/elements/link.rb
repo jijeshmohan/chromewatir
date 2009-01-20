@@ -12,11 +12,11 @@ module ChromeWatir
         when :text
           script = <<-EOF
           var foundElement = false;
-          var container = element;
-          for (var i = 0; i < container.links.length; i++) {
-            var element = container.links[i];
-            if (element.text == '#{@what}') {
+          var elements = element.getElementsByTagName('a');
+          for (var i = 0; i < elements.length; i++) {
+            if (elements[i].text == '#{@what}') {
               foundElement = true;
+              element=elements[i];
               break;
             }
           }
