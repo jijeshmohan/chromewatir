@@ -172,6 +172,11 @@ there are many methods available to the Button object
       return Span.new(self,how,what)
     end
     
+    def table(how,what)
+      return Table.new(self,how,what)
+    end
+    
+    
     #chrome will wait the page to load.
     def wait_for_page_to_load
       default_time_out = 2

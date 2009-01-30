@@ -5,7 +5,7 @@ module ChromeWatir
       @chrome_path = nil
       case Config::CONFIG["host_os"]
         when /win32/
-          if ENV["PATH"].nil
+          if ENV["PATH"].nil?
             raise BinaryNotFoundException.new("Chrome binary is not found in the default path or the path provided. Please provide the corrent path.") 
           end
           ENV["PATH"].split(";").each do |path|
