@@ -14,6 +14,7 @@ require lib_directory + "locator_factory"
 
 require elements_directory + "web_element"
 require elements_directory + "input_element"
+require elements_directory + "element_collections"
 require elements_directory + "text_element"
 require elements_directory + "input_option_element"
 require elements_directory + "frame"

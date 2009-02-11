@@ -176,6 +176,9 @@ there are many methods available to the Button object
       return Table.new(self,how,what)
     end
     
+    def radios
+      return Radios.new(self)
+    end
     
     #chrome will wait the page to load.
     def wait_for_page_to_load
