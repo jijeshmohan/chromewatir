@@ -23,7 +23,6 @@ class LinkTest < Test::Unit::TestCase
     @browser.back
     @browser.link(:xpath, "//a[3]/img").click
     assert_match(/pass3/, @browser.url)
-
   end
   
 end
