@@ -176,6 +176,10 @@ there are many methods available to the Button object
       return Table.new(self,how,what)
     end
     
+    def file_field(how,what)
+      return FileField.new(self, how, what)
+    end
+    
     def radios
       return Radios.new(self)
     end
