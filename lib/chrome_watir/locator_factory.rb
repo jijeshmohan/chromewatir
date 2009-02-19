@@ -100,25 +100,36 @@ module ChromeWatir
                 var elements = null;
                 var element_types = new Array#{js_element_types};
                 var indexCount=0;
-                for(var i=0; i<element_types.length; i++)
+                if(element_types.length==1)
                 {
-                  filtered_elements = element.getElementsByTagName(element_types[i]);
-                  for(var j=0; j<filtered_elements.length; j++)
-                  {
-                    indexCount=indexCount+1;
-                    if(indexCount==#{what})
+                    filtered_elements = element.getElementsByTagName(element_types[0]);
+                    if(filtered_elements.length >= #{what} )
                     {
-                        foundElement=true;
-                        element=filtered_elements[j];
-                        break;
+                      foundElement=true;
+                      element=filtered_elements[#{what}-1];
                     }
-                  }
-                  if(foundElement)
+                }
+                else
+                {
+                  for(var i=0; i<element_types.length; i++)
                   {
-                    break;
-                  }
-                }              
-             
+                    filtered_elements = element.getElementsByTagName(element_types[i]);
+                    for(var j=0; j<filtered_elements.length; j++)
+                    {
+                      indexCount=indexCount+1;
+                      if(indexCount==#{what})
+                      {
+                          foundElement=true;
+                          element=filtered_elements[j];
+                          break;
+                      }
+                    }
+                    if(foundElement)
+                    {
+                      break;
+                    }
+                  }              
+                }
                 EOF
               end
             when :value

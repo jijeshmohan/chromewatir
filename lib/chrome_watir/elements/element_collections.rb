@@ -81,10 +81,7 @@ module ChromeWatir
           for(var i=0; i<element_types.length; i++)
           {
             filtered_elements = element.getElementsByTagName(element_types[i]);
-            for(var j=0; j<filtered_elements.length; j++)
-            {
-              indexCount=indexCount+1;
-            }
+              indexCount=indexCount+filtered_elements.length;
           }
           return indexCount;          
         }
