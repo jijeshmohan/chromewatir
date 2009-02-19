@@ -12,12 +12,12 @@ module ChromeWatir
       end       
       if(defined? input_types)
         js_input_types = "("
-        input_types.each do |item|
+        self.input_types.each do |item|
           js_input_types = js_input_types +'"' + item + '",'
         end
         js_input_types = js_input_types.chop + ")"
         
-        type = element_type
+        type = self.element_type
         element_type = [type] unless type.is_a? Array 
         
         js_element_types = "("
