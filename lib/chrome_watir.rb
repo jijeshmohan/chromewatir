@@ -1,6 +1,7 @@
 require "rubygems"
 require "socket"
 require "win32/process"
+require "win32/registry"
 require "rbconfig"
 lib_directory = File.dirname(__FILE__) + "/chrome_watir/"
 elements_directory = lib_directory + "/elements/"
