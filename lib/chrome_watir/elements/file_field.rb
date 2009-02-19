@@ -8,6 +8,7 @@ module ChromeWatir
       assert_enabled
       set_path.gsub!("/","\\")
 
+      raise ChromeWatir::Exceptions::FileNotFoundException,"#{set_path} Not Found" unless File.file? set_path
       AutoIt.check_is_installed
       begin
         thrd = Thread.new do

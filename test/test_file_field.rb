@@ -6,7 +6,7 @@ class FileFieldTest < Test::Unit::TestCase
     @browser = start_browser("fileupload")
   end
   def teardown
-    #~ @browser.close
+     @browser.close
   end
   def test_fileField_Exists
     #test for existance of 4 file area
@@ -25,7 +25,7 @@ class FileFieldTest < Test::Unit::TestCase
     assert(@browser.page_source.include?("PASS"))	
     #Working on failure part
     @browser.back
-    @browser.file_field(:name,"file3").set(html_root + "notThere.html")	
+    assert_raise(FileNotFoundException){@browser.file_field(:name,"file3").set(html_root + "notThere.html")}
   end
 
   #~ def test_fileField_iterator
