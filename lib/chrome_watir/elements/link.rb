@@ -59,5 +59,6 @@ module ChromeWatir
       @container.js_eval("imgSrc();")
       return @container.read_socket
     end
+    def_wrap_guard :href
   end
 end

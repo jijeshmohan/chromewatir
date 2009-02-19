@@ -64,7 +64,8 @@ module ChromeWatir
         }
         EOF
       else
-        element_type = [element_type] unless element_type.is_a? Array 
+        type = self.element_type
+        element_type = [type] unless type.is_a? Array         
         js_element_types = "("
         element_type.each do |item|
           js_element_types = js_element_types +'"' + item + '",'

@@ -24,5 +24,17 @@ class LinkTest < Test::Unit::TestCase
     @browser.link(:xpath, "//a[3]/img").click
     assert_match(/pass3/, @browser.url)
   end
-  
+    def test_link_iterator
+        assert_equal(11, @browser.links.length )
+        assert_equal("Link Using a name" , @browser.links[7].text)
+        
+        index = 1
+        @browser.links.each do |link|
+            assert_equal( @browser.link(:index, index).href      , link.href )
+            assert_equal( @browser.link(:index, index).id        , link.id )
+            assert_equal( @browser.link(:index, index).name      , link.name )
+            assert_equal( @browser.link(:index, index).text , link.text )
+            index+=1
+        end
+    end  
 end
