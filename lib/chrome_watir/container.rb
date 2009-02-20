@@ -160,34 +160,156 @@ there are many methods available to the Button object
       return TextArea.new(self,how,what)
     end
     
+    # This is the main method for accessing a frame
+    #  *  how   - symbol - how we access the frame, :index, :id, :name etc
+    #  *  what  - string, integer or regular expression - what we are looking for,
+    #
+    # returns a Frame object
+    #
+    # Typical Usage
+    #
+    #    browser.frame(:id,   'side_bar')                 # access the frame with an ID of side bar
     def frame(how,what)
       return Frame.new(self,how,what)
     end
     
+    # This is the main method for accessing a div control
+    #  *  how   - symbol - how we access the field, :index, :id, :name etc
+    #  *  what  - string, integer or regular expression - what we are looking for,
+    #
+    # returns a Div object
+    #
+    # Typical Usage
+    #
+    #    browser.div(:id,   'user_name')                 # access the div with an ID of user_name
+    #    browser.div(:name, 'address')                   # access the div with a name of address
     def div(how,what)
       return Div.new(self,how,what)
     end
     
+    # This is the main method for accessing a span control
+    #  *  how   - symbol - how we access the field, :index, :id, :name etc
+    #  *  what  - string, integer or regular expression - what we are looking for,
+    #
+    # returns a Span object
+    #
+    # Typical Usage
+    #
+    #    browser.span(:id,   'user_name')                 # access the span with an ID of user_name
+    #    browser.span(:name, 'address')                   # access the span with a name of address
     def span(how,what)
       return Span.new(self,how,what)
     end
     
+    # This is the main method for accessing a table control
+    #  *  how   - symbol - how we access the field, :index, :id, :name etc
+    #  *  what  - string, integer or regular expression - what we are looking for,
+    #
+    # returns a Table object
+    #
+    # Typical Usage
+    #
+    #    browser.table(:id,   'user_name')                 # access the table with an ID of user_name
+    #    browser.table(:name, 'address')                   # access the table with a name of address
     def table(how,what)
       return Table.new(self,how,what)
     end
     
+    #This is the main method for accessing a file field. Usually an <input type = file> HTML tag.
+    #
+    # *  how   - symbol - how we access the field, valid values are
+    #   :index      - find the file field using index
+    #   :id         - find the file field using id attribute
+    #   :name       - find the file field using name attribute
+    #   :xpath      - find the file field using xpath query
+    # *  what  - string, integer, regular expression, or xpath query - what we are looking for,
+    #
+    #returns a FileField object
+    #
+    #Typical Usage
+    #
+    #   browser.file_field(:id,   'up_1')                     # access the file upload field with an ID of up_1
+    #   browser.file_field(:name, 'upload')                   # access the file upload field with a name of upload
     def file_field(how,what)
       return FileField.new(self, how, what)
     end
-    
+
+    #This is the method for accessing the radio buttons iterator. Returns a Radios object
+    #
+    #Typical usage:
+    #
+    #  browser.radios.each { |r| puts r.to_s }            # iterate through all the radio buttons on the page
+    #  browser.radios[1].to_s                             # goto the first radio button on the page
+    #  browser.radios.length                              # show how many radio buttons are on the page.
     def radios
       return Radios.new(self)
     end
     
+    #This is the main method for accessing the links collection. Returns a Links object
+
+    #Typical usage:
+
+    #  browser.links.each { |l| puts l.to_s }            # iterate through all the links on the page
+    #  browser.links[1].to_s                             # goto the first link on the page
+    #  browser.links.length                              # show how many links are on the page
     def links
       return Links.new(self)
     end
-    
+
+    #This is the main method for accessing the images collection. Returns an Images object
+    #
+    #Typical usage:
+    #
+    #  browser.images.each { |i| puts i.to_s }            # iterate through all the images on the page
+    #  browser.images[1].to_s                             # goto the first image on the page
+    #  browser.images.length                              # show how many images are on the page.
+    def images
+      return Images.new(self)
+    end
+
+    #this is the method for accessing the text_fields iterator. It returns a Text_Fields object
+    #
+    #Typical usage:
+    #
+    #  browser.text_fields.each { |t| puts t.to_s }            # iterate through all the text fields on the page
+    #  browser.text_fields[1].to_s                             # goto the first text field on the page
+    #  browser.text_fields.length                              # show how many text field are on the page.
+    def text_fields
+      return TextFeilds.new(self)
+    end
+
+    #this is the method for accessing the check boxes iterator. Returns a CheckBoxes object
+    #
+    #Typical usage:
+    #
+    #  browser.checkboxes.each { |c| puts c.to_s }             # iterate through all the check boxes on the page
+    #  browser.checkboxes[1].to_s                              # goto the first check box on the page
+    #  browser.checkboxes.length                               # show how many check boxes are on the page.
+    def checkboxes
+      return CheckBoxes.new(self)
+    end
+
+    #this is the main method for accessing the buttons iterator. It returns a Buttons object
+    #
+    #Typical usage:
+    #
+    #  browser.buttons.each { |b| puts b.to_s }                   # iterate through all the buttons on the page
+    #  browser.buttons[1].to_s                                    # goto the first button on the page
+    #  browser.buttons.length                                     # show how many buttons are on the page.
+    def buttons
+      return Buttons.new(self)
+    end
+
+    #this is the method for accessing the select lists iterator. Returns a SelectLists object
+    #
+    #Typical usage:
+    #
+    #  browser.select_lists.each { |s| puts s.to_s }            # iterate through all the select boxes on the page
+    #  browser.select_lists[1].to_s                             # goto the first select boxes on the page
+    #  browser.select_lists.length                              # show how many select boxes are on the page.
+    def select_lists
+      return SelectLists.new(self)
+    end
     #chrome will wait the page to load.
     def wait_for_page_to_load
       default_time_out = 2

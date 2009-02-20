@@ -1,4 +1,5 @@
 module ChromeWatir
+  #A common collection class to deal with all element collections 
   class ElementCollections
     include Enumerable
     def initialize(container)

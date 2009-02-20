@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name = %q{chrome_watir}
-  s.version = "1.4.0"
+  s.version = "1.5.0"
 
   s.specification_version = 1.2 if s.respond_to? :specification_version=
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jijesh Mohan","Sai Venkatakrishnan"]
-  s.date = %q{2009-1-21}
+  s.date = %q{2009-2-20}
   s.description = %q{A watir implementation for Google Chrome.}
   s.email = %q{saidesertrose2004@gmail.com;jijeshmohan@gmail.com}
   libs = Dir.glob(["lib/*.rb","lib/*/*.rb","lib/*/*/*.rb"])
